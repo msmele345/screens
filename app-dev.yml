@@ -1,0 +1,37 @@
+apiVersion: 2019-12-01
+location: eastus
+name: grievboxContainers
+properties:
+  containers:
+    - name: db
+      properties:
+        image: mmdevregistry.azurecr.io/postgresazdev:v1
+        ports:
+          - port: 5432
+            protocol: TCP
+        resources:
+          requests:
+            cpu: 1
+            memoryInGb: 1.0
+    - name: app
+      properties:
+        image: mmdevregistry.azurecr.io/apps:grievbox-9
+        ports:
+          - port: 8080
+            protocol: TCP
+        resources:
+          requests:
+            cpu: 1
+            memoryInGb: 1.0
+  osType: Linux
+  ipAddress:
+    type: Public
+    ports:
+      - protocol: tcp
+        port: 8080
+  imageRegistryCredentials:
+  - server: appregistry45545.azurecr.io
+    username: mmdevregistry
+    password: "y4kOTA/x35niV/NjRgH42rWCOgQnl00qfsU5mvVrc0+ACRC4xBZ8"
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
