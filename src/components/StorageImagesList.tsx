@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { ImageBlob } from "../App";
 import Card from "../UI/Card";
 
 interface ImagesListProps {
@@ -8,23 +7,28 @@ interface ImagesListProps {
 
 const StorageImagesList = ({ images = [] }: ImagesListProps) => {
     useEffect(() => {
-        console.log("LIST URLS: ",images)
+        console.log("LIST URLS: ", images)
     }, [])
+
+
+    const parseFileName = (filename?: string): string => {
+        if (!filename || !filename.includes(".")) {
+            return "beans";
+        }
+        return filename.split('.')[0]
+    }
+
     return (
         <div>
-            <ul id="screens">
-                {images && images.map((blob, index) => {
-                    return (
-                        <li className="screen">
-                            <Card key={index} >
-                                <img src={blob.url as string ?? 'beans url'} alt="no pic" />
-                                <h3 style={{ width: "90%" }}>{blob.name as string ?? 'beans name'}</h3>
-                                {/* <button className="del" onClick={() => handleDelete(blobItem.name)} > <AiFillDelete /> </button> */}
-                            </Card>
-                        </li>
-                    )
-                })}
-            </ul>
+            {images && images.map((blob, index) => {
+                return (
+                    <div key={index} className='card'>
+                        <img src={blob.url as string ?? 'beans url'} alt="no pic" />
+                        <h3 style={{ width: "90%" }}>{parseFileName(blob.name as string)}</h3>
+                        {/* <button className="del" onClick={() => handleDelete(blobItem.name)} > <AiFillDelete /> </button> */}
+                    </div>
+                )
+            })}
         </div>
     )
 };

@@ -63,14 +63,6 @@ function App() {
     setImageUrls(urls);
   };
 
-  const mapBlobs = (blobs: Record<string, unknown>[]) => {
-    const imageBlobs: ImageBlob[] = [];
-    return blobs.map((blob) => {
-        imageBlobs.push({name: blob.name as string, url: blob.url as string})
-    })
-    return imageBlobs;
-  }
-
   return (
     <div>
       <Header />
