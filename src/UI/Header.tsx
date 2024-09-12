@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import logo from '../assets/investment-calculator-logo.png';
 
 
 
@@ -7,8 +6,8 @@ const Header = (): ReactElement => {
     return (   
     <>
         <header className="header">
-            <img src={logo} alt="logo" />
-            <h1>Investment Calculator</h1>
+            <img src={""} alt="logo" />
+            <h1>Lights And Music</h1>
         </header>
     </>
     )   

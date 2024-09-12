@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Card from "../UI/Card";
 
 interface ImagesListProps {
     images: Record<string, unknown>[];
@@ -34,3 +33,19 @@ const StorageImagesList = ({ images = [] }: ImagesListProps) => {
 };
 
 export default StorageImagesList;
+
+/* 
+    return (
+        <div>
+            {images && images.map((blob, index) => {
+                return (
+                    <div key={index} className='card'>
+                        <img src={blob.url as string ?? 'beans url'} alt="no pic" />
+                        <h3 style={{ width: "90%" }}>{parseFileName(blob.name as string)}</h3>
+//                         </div>
+//                     )
+//                 })}
+//             </div>
+//         )
+
+// */
