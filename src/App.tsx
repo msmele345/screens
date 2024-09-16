@@ -43,22 +43,15 @@ function App() {
   const fetchBlobs = async() => {
     setIsLoading(true);
     const urls: Record<string, unknown>[] = [];
-    // const urls2: ImageBlob[] = []; //map with metadata
 
     try {
-      const blobItems = containerClient.listBlobsFlat(); 
+      const blobItems = await containerClient.listBlobsFlat(); 
 
       for await (const blob of blobItems) {
         const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);  
         console.log("BLOB CLIENT OBJ: ", blob)
         urls.push({ name: blob.name, url: tempBlockBlobClient.url }); 
       }
-
-      // for await (const blob of blobItems) {
-      //   const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);  
-      //   console.log("BLOB CLIENT OBJ: ", blob)
-      //   urls2.push({ name: blob.name, url: tempBlockBlobClient.url }); 
-      // }
 
     } catch (e: any) {
       console.log("Error***: ", e.message || "server error");
@@ -73,16 +66,30 @@ function App() {
   return (
     <div>
       <Header />
-      {/* <ul id="screens">
-        <li className="screen">
-          <img src="TODO: IMAGE" alt="TODO: TITLE" />
-          <h2>TODO: BANGIN</h2>
-          <p>TODO: FIRE</p>
-        </li>
-      </ul> */}
-      { !isFetchError && !isLoading && <StorageImagesList images={imageUrls} /> }
+      { 
+      !isFetchError && !isLoading && 
+      (
+        <>
+          <TabLayoutContainer images={imageUrls}/>
+          {/* <StorageImagesList images={imageUrls} /> */}
+        </>
+
+      ) 
+      }
     </div>
   );
 };
 
 export default App;
+
+
+/* 
+  return (
+    <div>
+      <Header />
+      <TabLayoutContainer/>
+      { !isFetchError && !isLoading && <StorageImagesList images={imageUrls} /> }
+    </div>
+  );
+
+*/

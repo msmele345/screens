@@ -101,6 +101,12 @@ header p {
   position: relative;
 } */
 
+.card-container {
+  display: flex;
+  flex-direction: row;
+  width: auto;
+}
+
 
 .card {
   background-color: #7f11aa;

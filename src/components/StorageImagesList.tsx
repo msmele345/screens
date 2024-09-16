@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-interface ImagesListProps {
+export interface ImagesListProps {
     images: Record<string, unknown>[];
 }
 
@@ -18,7 +18,7 @@ const StorageImagesList = ({ images = [] }: ImagesListProps) => {
     }
 
     return (
-        <div>
+        <div className="card-container">
             {images && images.map((blob, index) => {
                 return (
                     <div key={index} className='card'>
