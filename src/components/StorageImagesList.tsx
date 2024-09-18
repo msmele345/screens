@@ -1,20 +1,22 @@
-import { useEffect } from "react";
 
 export interface ImagesListProps {
     images: Record<string, unknown>[];
 }
 
 const StorageImagesList = ({ images = [] }: ImagesListProps) => {
-    useEffect(() => {
-        console.log("LIST URLS: ", images)
-    }, [])
-
 
     const parseFileName = (filename?: string): string => {
-        if (!filename || !filename.includes(".")) {
+        if (!filename || !filename.includes("_")) {
             return "beans";
         }
-        return filename.split('.')[0]
+
+        const name = filename.split('_')[1];
+
+        if(name.includes(".")) {
+            return name.substring(0, name.indexOf("."));
+        }
+        
+        return name;
     }
 
     return (
@@ -33,19 +35,3 @@ const StorageImagesList = ({ images = [] }: ImagesListProps) => {
 };
 
 export default StorageImagesList;
-
-/* 
-    return (
-        <div>
-            {images && images.map((blob, index) => {
-                return (
-                    <div key={index} className='card'>
-                        <img src={blob.url as string ?? 'beans url'} alt="no pic" />
-                        <h3 style={{ width: "90%" }}>{parseFileName(blob.name as string)}</h3>
-//                         </div>
-//                     )
-//                 })}
-//             </div>
-//         )
-
-// */
