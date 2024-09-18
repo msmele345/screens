@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import StorageImagesList, { ImagesListProps } from "./StorageImagesList";
+import '../App.css';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -43,24 +44,30 @@ const TabLayoutContainer = ({ images = [] }: ImagesListProps): ReactElement => {
 
 
     const setTabs = (images: Record<string, unknown>[]) => {
-        const tabYears2: string[] = [];
-        const labels2: string[] = parseTabLabels(images);
+        const labels: string[] = parseTabLabels(images);
 
-        labels2.forEach(year => { //move this into parseLabels();
-            if (!tabYears2.includes(year)) {
-                console.log("HERE")
-                tabYears2.push(year);
-            }
-        })
+        const uniqueYears = [...new Set(labels)];
 
-        const labels = tabYears2.map(year => {
-            return <Tab label={year} />;
+        const tabs = uniqueYears.map((year, index) => {
+            return <Tab label={year} key={index} />;
         })
-        return labels;
+        return tabs;
     };
+
+    const sortYears = (stringYears: string[]): string[] => {
+        return stringYears.sort((a, b) => {
+            if(a > b) {
+                return -1
+            } else {
+                return 1;
+            }
+        });
+    }
 
     const setPanels = (images: Record<string, unknown>[], tabValue: number) => {
         const years = parseTabLabels(images);
+
+        // console.log("!!!!!sorted ", sortYears(years));
         return years.map((year, index) => {
             return (
                 <CustomTabPanel value={tabValue} index={index}>
@@ -73,21 +80,19 @@ const TabLayoutContainer = ({ images = [] }: ImagesListProps): ReactElement => {
     return (
         <>
             <div>
-                {parseTabLabels(images)}
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs value={tabValue} onChange={handleChange} aria-label="basic tabs example">
+                    <Tabs 
+                    value={tabValue} 
+                    centered
+                    onChange={handleChange} 
+                    aria-label="basic tabs example"
+                    textColor="inherit"
+                    indicatorColor= "secondary"
+                    >
                         {setTabs(images)}
-                        {
-                            /* <Tab label="2019"/>
-                            <Tab label="2021" /> 
-                            <Tab label="2024" /> 
-                            */
-                        }
                     </Tabs>
                 </Box>
-
                 { setPanels(images, tabValue) }
-
             </div>
         </>
     )
