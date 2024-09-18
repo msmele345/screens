@@ -54,6 +54,7 @@ const TabLayoutContainer = ({ images = [] }: ImagesListProps): ReactElement => {
         return tabs;
     };
 
+    //revisit sort later
     const sortYears = (stringYears: string[]): string[] => {
         return stringYears.sort((a, b) => {
             if(a > b) {
@@ -67,7 +68,6 @@ const TabLayoutContainer = ({ images = [] }: ImagesListProps): ReactElement => {
     const setPanels = (images: Record<string, unknown>[], tabValue: number) => {
         const years = parseTabLabels(images);
 
-        // console.log("!!!!!sorted ", sortYears(years));
         return years.map((year, index) => {
             return (
                 <CustomTabPanel value={tabValue} index={index}>
