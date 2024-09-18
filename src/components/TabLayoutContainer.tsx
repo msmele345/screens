@@ -70,7 +70,7 @@ const TabLayoutContainer = ({ images = [] }: ImagesListProps): ReactElement => {
 
         return years.map((year, index) => {
             return (
-                <CustomTabPanel value={tabValue} index={index}>
+                <CustomTabPanel value={tabValue} index={index}> {/* blobItems === images */}
                     <StorageImagesList images={images.filter(img => (img.name as string).includes(year))} />
                 </CustomTabPanel>
             )
@@ -82,12 +82,12 @@ const TabLayoutContainer = ({ images = [] }: ImagesListProps): ReactElement => {
             <div>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs 
-                    value={tabValue} 
-                    centered
-                    onChange={handleChange} 
-                    aria-label="basic tabs example"
-                    textColor="inherit"
-                    indicatorColor= "secondary"
+                        value={tabValue} 
+                        centered
+                        onChange={handleChange} 
+                        aria-label="basic tabs example"
+                        textColor="inherit"
+                        indicatorColor= "secondary"
                     >
                         {setTabs(images)}
                     </Tabs>

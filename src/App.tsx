@@ -55,7 +55,6 @@ function App() {
       setIsFetchError(true);
       setIsLoading(false);
     }
-    console.log(urls);
     setIsLoading(false)
     setImageUrls(urls);
   };
@@ -77,15 +76,3 @@ function App() {
 };
 
 export default App;
-
-
-/* 
-  return (
-    <div>
-      <Header />
-      <TabLayoutContainer/>
-      { !isFetchError && !isLoading && <StorageImagesList images={imageUrls} /> }
-    </div>
-  );
-
-*/
