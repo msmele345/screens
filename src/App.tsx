@@ -36,19 +36,21 @@ function App() {
   useEffect(() => {
     fetchBlobs();
   }, []);
-  
 
-  const fetchBlobs = async() => {
+
+  const fetchBlobs = async () => {
     setIsLoading(true);
     const urls: Record<string, unknown>[] = [];
 
     try {
-      const blobItems = await containerClient.listBlobsFlat(); 
+      const blobItems = containerClient.listBlobsFlat();
 
       for await (const blob of blobItems) {
-        const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);  
-        urls.push({ name: blob.name, url: tempBlockBlobClient.url }); 
+        const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
+        urls.push({ name: blob.name, url: tempBlockBlobClient.url });
       }
+
+      console.log("Blob Items: ", urls);
 
     } catch (e: any) {
       console.log("Error***: ", e.message || "server error");
@@ -62,14 +64,14 @@ function App() {
   return (
     <div>
       <Header />
-      { 
-      !isFetchError && !isLoading && 
-      (
-        <>
-          <TabLayoutContainer images={imageUrls}/>
-        </>
+      {
+        !isFetchError && !isLoading &&
+        (
+          <>
+            <TabLayoutContainer images={imageUrls} />
+          </>
 
-      ) 
+        )
       }
     </div>
   );

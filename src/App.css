@@ -33,15 +33,10 @@
   }
 }
 
-.MuiButtonBase-root MuiTab-root MuiTab-textColorSecondary Mui-selected css-z6k2z3-MuiButtonBase-root-MuiTab-root {
-  color: green;
-}
 
 .MuiTab-root > button {
   color: white !important;
   margin: 5px;
 }
-/* .card {
-  padding: 2em;
-} */
+
 
