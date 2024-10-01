@@ -33,5 +33,11 @@ CMD [ "npm", "run", "dev" ]
 
 #mmacr2932.azurecr.io/ram:v2
 
-# az container create --resource-group mmacr1 --name postgresdev1 --image   mmdevregistry.azurecr.io/postgresazdev:v1 --ports 5432 --dns-name-label postgresdev1 --location eastus
-# az acr create --resource-group mmdevacr --name mmdev1 --sku basic
+# az container create --resource-group containerapps --name screensc --image mmacr2932.azurecr.io/screens:dev1 --ports 8082 --dns-name-label screensc --location eastus
+# az acr create --resource-group containerapps --name screensb --sku basic
+# az container show --resource-group containerapps --name screens --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}
+
+#SECRETS
+#Add secret using cli or ui to a specific mount path
+#copy secrets in to container from the mount path in the dockerfile
+# iMToNDfbQOSsQ1sg/SiC6Uc8H78OX53NGW47ETkHzb+ACRBwnLJp

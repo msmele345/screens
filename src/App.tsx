@@ -3,6 +3,7 @@ import './App.css'
 import Header from './UI/Header';
 import { useEffect, useState } from 'react';
 import TabLayoutContainer from './components/TabLayoutContainer';
+import UploadForm from './components/UploadForm';
 
 
 export interface Screen {
@@ -16,12 +17,11 @@ export interface ImageBlob {
   url: string;
 };
 
-// const defaultCredential = new DefaultAzureCredential();
 const account = import.meta.env.VITE_STORAGE_ACCOUNT  // get the storage account name from the .env file
 const containerName = import.meta.env.VITE_STORAGE_CONTAINER
 const sas = import.meta.env.STORAGE_SAS
 const endpoint = `https://${account}.blob.core.windows.net/?${sas}`
-// const blobServiceClient = new BlobServiceClient(endpoint, defaultCredential);  // create a blobServiceClient
+// const blobServiceClient = new BlobServiceClient(endpoint, defaultCredential);  
 const blobServiceClient = new BlobServiceClient(endpoint);  // create a blobServiceClient
 // const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);  // create a blobServiceClient
 const containerClient = blobServiceClient.getContainerClient(containerName);  // create a containerClient
@@ -34,6 +34,7 @@ function App() {
   const [isFetchError, setIsFetchError] = useState(false);
 
   useEffect(() => {
+    console.log("UPDATED IMAGED")
     fetchBlobs();
   }, []);
 
@@ -68,6 +69,7 @@ function App() {
         !isFetchError && !isLoading &&
         (
           <>
+            <UploadForm refreshImages={fetchBlobs} containerClient={containerClient} isLoading={setIsLoading}/>
             <TabLayoutContainer images={imageUrls} />
           </>
 

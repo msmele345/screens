@@ -12,6 +12,10 @@
   "dependencies": {
     "@azure/identity": "^4.4.1",
     "@azure/storage-blob": "^12.24.0",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.1",
+    "@mui/material": "^6.1.1",
     "buffer": "^6.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
