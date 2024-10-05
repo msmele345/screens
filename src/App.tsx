@@ -4,6 +4,7 @@ import Header from './UI/Header';
 import { useEffect, useState } from 'react';
 import TabLayoutContainer from './components/TabLayoutContainer';
 import UploadForm from './components/UploadForm';
+import AppContext, { ClickedImage } from './store/AppContext';
 
 
 export interface Screen {
@@ -32,9 +33,10 @@ function App() {
   const [imageUrls, setImageUrls] = useState<Record<string, unknown>[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchError, setIsFetchError] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<ClickedImage>({ name: "", url: "" });
 
   useEffect(() => {
-    console.log("UPDATED IMAGED")
+    console.log("SELECTED IMAGE: ", selectedImage);
     fetchBlobs();
   }, []);
 
@@ -62,20 +64,26 @@ function App() {
     setImageUrls(urls);
   };
 
-  return (
-    <div>
-      <Header />
-      {
-        !isFetchError && !isLoading &&
-        (
-          <>
-            <UploadForm refreshImages={fetchBlobs} containerClient={containerClient} isLoading={setIsLoading}/>
-            <TabLayoutContainer images={imageUrls} />
-          </>
+  const selectedImageHandler = (imageDetails: ClickedImage) => {
+    setSelectedImage(imageDetails);
+  }
 
-        )
-      }
-    </div>
+  return (
+    <AppContext.Provider value={{ setSelectedImage: selectedImageHandler, selectedImage: selectedImage }}>
+      <div>
+        <Header />
+        {
+          !isFetchError && !isLoading &&
+          (
+            <>
+              <UploadForm refreshImages={fetchBlobs} containerClient={containerClient} isLoading={setIsLoading} />
+              <TabLayoutContainer images={imageUrls} />
+            </>
+
+          )
+        }
+      </div>
+    </AppContext.Provider>
   );
 };
 

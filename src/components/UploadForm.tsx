@@ -1,11 +1,10 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import ImageIcon from '@mui/icons-material/Image';
-// import { FaFileUpload } from 'react-icons/fa';  // import the delete icon
+import { ContainerClient } from "@azure/storage-blob";
 
 interface UploadFormProps {
     refreshImages: () => Promise<void>;
-    containerClient: any;
+    containerClient: ContainerClient;
     isLoading: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -27,7 +26,7 @@ const UploadForm = ({ refreshImages, containerClient, isLoading }: UploadFormPro
             await blobClient.uploadData(file, { blobHTTPHeaders: { blobContentType: file.type } }); // upload the image
             await refreshImages();   // fetch all images again after the upload is completed
         } catch (error) {
-            console.error(error);  // Handle error
+            console.error("Upload Error", error);  // Handle error
         } finally {
             isLoading(false); // Turn off loading
         }
@@ -49,8 +48,7 @@ const UploadForm = ({ refreshImages, containerClient, isLoading }: UploadFormPro
             <form className='upload-form'>
                 <div className='upload-form_display'>
                     {
-                        file ? <img className="displayImg" src={URL.createObjectURL(file)} alt="no pic" />
-                            : <></>
+                        file ? <img className="displayImg" src={URL.createObjectURL(file)} alt="no pic" /> : <></>
                     }
                 </div>
                 <div className='upload-form_inputs'>

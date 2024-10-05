@@ -16,32 +16,15 @@ const ImageModal = ({ imageUrl, imageName, className }: ModalProps) => {
     return createPortal(
         <dialog ref={dialogRef} className={`modal ${className}`}>
             <div  className=''>
-                <img src={imageUrl?? 'beans url'} alt="Image Not Available" />
-                <h3 style={{ width: "90%" }}>{parseFileName(imageName)}</h3>
+                <img src={imageUrl ?? 'beans url'} alt="Image Not Available" />
+                <h3 style={{ width: "400px" }}>{parseFileName(imageName)}</h3>
             </div>
+            <form action="dialog">
+              <button>Close</button>
+            </form>
         </dialog>,
         (document.getElementById('modal') as Element | DocumentFragment)
     );
 };
 
 export default ImageModal;
-
-
-/* 
- or with on close
-function Modal({ children, onClose }) {
-  return (
-    <>
-      <div className={classes.backdrop} onClick={onClose} />
-      <dialog open className={classes.modal}>
-        {children}
-      </dialog>
-    </>
-  );
-}
-
-export default Modal;
-
-
-
-*/
