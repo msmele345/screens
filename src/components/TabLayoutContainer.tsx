@@ -57,7 +57,7 @@ const TabLayoutContainer = ({ images = [] }: ImagesListProps): ReactElement => {
     //revisit sort later
     const sortYears = (stringYears: string[]): string[] => {
         return stringYears.sort((a, b) => {
-            if(a > b) {
+            if (a > b) {
                 return -1
             } else {
                 return 1;
@@ -70,9 +70,11 @@ const TabLayoutContainer = ({ images = [] }: ImagesListProps): ReactElement => {
 
         return years.map((year, index) => {
             return (
-                <CustomTabPanel value={tabValue} index={index}> {/* blobItems === images */}
-                    <StorageImagesList images={images.filter(img => (img.name as string).includes(year))} />
-                </CustomTabPanel>
+                <div key={index}>
+                    <CustomTabPanel value={tabValue} index={index}> {/* blobItems === images */}
+                        <StorageImagesList images={images.filter(img => (img.name as string).includes(year))} />
+                    </CustomTabPanel>
+                </div>
             )
         })
     }
@@ -81,18 +83,18 @@ const TabLayoutContainer = ({ images = [] }: ImagesListProps): ReactElement => {
         <>
             <div>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs 
-                        value={tabValue} 
+                    <Tabs
+                        value={tabValue}
                         centered
-                        onChange={handleChange} 
+                        onChange={handleChange}
                         aria-label="basic tabs example"
                         textColor="inherit"
-                        indicatorColor= "secondary"
+                        indicatorColor="secondary"
                     >
                         {setTabs(images)}
                     </Tabs>
                 </Box>
-                { setPanels(images, tabValue) }
+                {setPanels(images, tabValue)}
             </div>
         </>
     )

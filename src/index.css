@@ -14,29 +14,6 @@ body {
   color: #d9c9ee;
 }
 
-header {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 3rem;
-  text-align: center;
-}
-
-header img {
-  width: 7rem;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-header p {
-  margin: 0;
-}
-
 #screens {
   max-width: 50rem;
   margin: 2rem auto;
@@ -153,10 +130,11 @@ header p {
 
 
 .header img {
-  width: 5rem;
-  height: 5rem;
+  width: auto;
+  height: 15rem;
   object-fit: contain;
   background-color: transparent;
+  margin-bottom: 10px;
 }
 
 .header h1 {

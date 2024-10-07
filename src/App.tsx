@@ -2,9 +2,8 @@ import { BlobServiceClient } from '@azure/storage-blob';
 import './App.css'
 import Header from './UI/Header';
 import { useEffect, useState } from 'react';
-import TabLayoutContainer from './components/TabLayoutContainer';
-import UploadForm from './components/UploadForm';
 import AppContext, { ClickedImage } from './store/AppContext';
+import ImageGallery from './components/ImageGallery';
 
 
 export interface Screen {
@@ -30,39 +29,11 @@ const containerClient = blobServiceClient.getContainerClient(containerName);  //
 
 
 function App() {
-  const [imageUrls, setImageUrls] = useState<Record<string, unknown>[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isFetchError, setIsFetchError] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<ClickedImage>({ name: "", url: "" });
+  const [selectedImage, setSelectedImage] = useState<ClickedImage| null>(null);
 
   useEffect(() => {
-    console.log("SELECTED IMAGE: ", selectedImage);
-    fetchBlobs();
-  }, []);
-
-
-  const fetchBlobs = async () => {
-    setIsLoading(true);
-    const urls: Record<string, unknown>[] = [];
-
-    try {
-      const blobItems = containerClient.listBlobsFlat();
-
-      for await (const blob of blobItems) {
-        const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
-        urls.push({ name: blob.name, url: tempBlockBlobClient.url });
-      }
-
-      console.log("Blob Items: ", urls);
-
-    } catch (e: any) {
-      console.log("Error***: ", e.message || "server error");
-      setIsFetchError(true);
-      setIsLoading(false);
-    }
-    setIsLoading(false)
-    setImageUrls(urls);
-  };
+    console.log("TOP LEVEL SELECTED IMAGE: ", selectedImage);
+  }, [selectedImage]);
 
   const selectedImageHandler = (imageDetails: ClickedImage) => {
     setSelectedImage(imageDetails);
@@ -72,16 +43,7 @@ function App() {
     <AppContext.Provider value={{ setSelectedImage: selectedImageHandler, selectedImage: selectedImage }}>
       <div>
         <Header />
-        {
-          !isFetchError && !isLoading &&
-          (
-            <>
-              <UploadForm refreshImages={fetchBlobs} containerClient={containerClient} isLoading={setIsLoading} />
-              <TabLayoutContainer images={imageUrls} />
-            </>
-
-          )
-        }
+        <ImageGallery containerClient={containerClient} />
       </div>
     </AppContext.Provider>
   );

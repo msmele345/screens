@@ -13,11 +13,9 @@ const ImageGallery = ({ containerClient }: HomePageProps) => {
     const [imageUrls, setImageUrls] = useState<Record<string, unknown>[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isFetchError, setIsFetchError] = useState(false);
-    const [selectedImage, setSelectedImage] = useState<ClickedImage>({ name: "", url: "" });
-
 
     useEffect(() => {
-        console.log("SELECTED IMAGE: ", selectedImage);
+        // console.log("SELECTED IMAGE: ", selectedImage);
         fetchBlobs();
     }, []);
 

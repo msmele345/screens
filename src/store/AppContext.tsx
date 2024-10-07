@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction } from "react";
+import { createContext } from "react";
 
 
 export type ClickedImage = {
@@ -9,7 +9,7 @@ export type ClickedImage = {
 
 export interface AppContextValues {
     setSelectedImage: (imageDetails: ClickedImage) => void; 
-    selectedImage: ClickedImage;
+    selectedImage: ClickedImage | null;
 }
 
 const defaultAppState: AppContextValues = {
