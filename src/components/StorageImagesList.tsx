@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import AppContext from "../store/AppContext";
 import BlobImageItem from "./BlobImageItem";
+import { getImageName } from "../util/StringUtils";
 
 export interface ImagesListProps {
     images: Record<string, unknown>[];
@@ -25,8 +26,8 @@ const StorageImagesList = ({ images = [] }: ImagesListProps) => {
     const appContext = useContext(AppContext);
 
     const imageClickHandler = (e: any) => {
-        console.log("Clicked on image", e.target.attributes['src']);
-        appContext.setSelectedImage({ name: "default parse me from url", url: e.target.attributes['src'] });
+        const url = e.target.attributes[0].textContent as string;
+        appContext.setSelectedImage({ name: getImageName(url), url:  e.target.attributes[0].textContent});
     }
 
     return (

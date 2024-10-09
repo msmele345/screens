@@ -19,7 +19,7 @@ const BlobImageItem = ({ imageName, imageUrl, onClickHandler }: BlobImageItemPro
     return (
         <div className='card' onClick={onClickHandler}>
             <img src={imageUrl as string ?? 'beans url'} alt="Image Not Available" />
-            <h3 style={{ width: "90%" }}>{parseFileName(imageName as string)}</h3>
+            <h3 style={{ color: '#d9c9ee'}}>{parseFileName(imageName as string)}</h3>
             {/* <button className="del" onClick={() => handleDelete(blobItem.name)} > <AiFillDelete /> </button> */}
         </div>
     )

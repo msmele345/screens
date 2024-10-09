@@ -141,6 +141,12 @@ body {
   font-size: 1.5rem;
 }
 
+.modal-header {
+  font-family: 'Quicksand', sans-serif;
+  color: #d9c9ee;
+}
+
+
 .form {
   padding: 1rem;
   max-width: 30rem;
@@ -276,7 +282,6 @@ button:hover {
 } 
 
 
-
 .backdrop {
   position: fixed;
   top: 0;
@@ -293,7 +298,12 @@ button:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   padding: 0;
   overflow: hidden;
+  max-width: auto;
   z-index: 1;
+}
+
+.modal-dialogue {
+  background-color:  rgb(113, 25, 176);
 }
 
 

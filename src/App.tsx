@@ -4,6 +4,7 @@ import Header from './UI/Header';
 import { useEffect, useState } from 'react';
 import AppContext, { ClickedImage } from './store/AppContext';
 import ImageGallery from './components/ImageGallery';
+import GenericModal from './UI/GenericModal';
 
 
 export interface Screen {
@@ -17,19 +18,9 @@ export interface ImageBlob {
   url: string;
 };
 
-const account = import.meta.env.VITE_STORAGE_ACCOUNT  // get the storage account name from the .env file
-const containerName = import.meta.env.VITE_STORAGE_CONTAINER
-const sas = import.meta.env.STORAGE_SAS
-const endpoint = `https://${account}.blob.core.windows.net/?${sas}`
-// const blobServiceClient = new BlobServiceClient(endpoint, defaultCredential);  
-const blobServiceClient = new BlobServiceClient(endpoint);  // create a blobServiceClient
-// const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);  // create a blobServiceClient
-const containerClient = blobServiceClient.getContainerClient(containerName);  // create a containerClient
-
-
 
 function App() {
-  const [selectedImage, setSelectedImage] = useState<ClickedImage| null>(null);
+  const [selectedImage, setSelectedImage] = useState<ClickedImage | null>(null);
 
   useEffect(() => {
     console.log("TOP LEVEL SELECTED IMAGE: ", selectedImage);
@@ -41,10 +32,15 @@ function App() {
 
   return (
     <AppContext.Provider value={{ setSelectedImage: selectedImageHandler, selectedImage: selectedImage }}>
-      <div>
-        <Header />
-        <ImageGallery containerClient={containerClient} />
-      </div>
+      {!selectedImage ?
+        <div>
+          <Header />
+          <ImageGallery />
+        </div>
+        : (
+          selectedImage && <GenericModal imageName={selectedImage?.name ?? ""} imageUrl={selectedImage?.url ?? ""} />
+        )
+      }
     </AppContext.Provider>
   );
 };

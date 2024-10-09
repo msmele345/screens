@@ -1,21 +1,20 @@
 import { ContainerClient } from "@azure/storage-blob";
 import { useEffect, useState } from "react";
 import TabLayoutContainer from "./TabLayoutContainer";
-import { ClickedImage } from "../store/AppContext";
+import getContainerClient from "../storage/storageclient";
 
 export interface HomePageProps {
     containerClient: ContainerClient;
 }
 
 
-const ImageGallery = ({ containerClient }: HomePageProps) => {
+const ImageGallery = () => {
 
     const [imageUrls, setImageUrls] = useState<Record<string, unknown>[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isFetchError, setIsFetchError] = useState(false);
 
     useEffect(() => {
-        // console.log("SELECTED IMAGE: ", selectedImage);
         fetchBlobs();
     }, []);
 
@@ -23,6 +22,7 @@ const ImageGallery = ({ containerClient }: HomePageProps) => {
     const fetchBlobs = async () => {
         setIsLoading(true);
         const urls: Record<string, unknown>[] = [];
+        const containerClient = getContainerClient();
 
         try {
             const blobItems = containerClient.listBlobsFlat();
