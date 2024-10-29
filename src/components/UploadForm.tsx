@@ -1,16 +1,17 @@
-import { Dispatch, SetStateAction, useState } from "react";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { ContainerClient } from "@azure/storage-blob";
+import { Dispatch, SetStateAction, useState } from "react";
+import getContainerClient from "../storage/storageclient";
 
 interface UploadFormProps {
     refreshImages: () => Promise<void>;
-    containerClient: ContainerClient;
     isLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-const UploadForm = ({ refreshImages, containerClient, isLoading }: UploadFormProps) => {
+const UploadForm = ({ refreshImages, isLoading }: UploadFormProps) => {
 
     const [file, setFile] = useState<any>(null);
+
+    const containerClient = getContainerClient();
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -21,8 +22,9 @@ const UploadForm = ({ refreshImages, containerClient, isLoading }: UploadFormPro
 
         try {
             isLoading(true);
-            const blobName = `${new Date().getTime()}-${file.name as string}`; // Specify a default blob name if needed
+            const blobName = `${new Date().getFullYear()}-${file.name as string}`; // Specify a default blob name if needed
             const blobClient = containerClient.getBlockBlobClient(blobName);  // get the blob client
+            console.log("HERE IN BLOB UPLOAD PAST CLIENT")
             await blobClient.uploadData(file, { blobHTTPHeaders: { blobContentType: file.type } }); // upload the image
             await refreshImages();   // fetch all images again after the upload is completed
         } catch (error) {

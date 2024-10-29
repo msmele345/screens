@@ -2,6 +2,7 @@ import { ContainerClient } from "@azure/storage-blob";
 import { useEffect, useState } from "react";
 import TabLayoutContainer from "./TabLayoutContainer";
 import getContainerClient from "../storage/storageclient";
+import UploadForm from "./UploadForm";
 
 export interface HomePageProps {
     containerClient: ContainerClient;
@@ -47,10 +48,10 @@ const ImageGallery = () => {
         <>
             { !isFetchError && !isLoading &&
                 (
-                    <>
-                        {/* <UploadForm refreshImages={fetchBlobs} containerClient={containerClient} isLoading={setIsLoading} /> */}
+                    <div>
+                        <UploadForm refreshImages={fetchBlobs} isLoading={setIsLoading} />
                         <TabLayoutContainer images={imageUrls} />
-                    </>
+                    </div>
 
                 )
             }

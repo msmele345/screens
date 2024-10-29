@@ -11,11 +11,6 @@ interface BlobImageItemProps {
 
 const BlobImageItem = ({ imageName, imageUrl, onClickHandler }: BlobImageItemProps) => {
 
-    const imageClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        console.log("Clicked on image", e.target);
-
-    }
-
     return (
         <div className='card' onClick={onClickHandler}>
             <img src={imageUrl as string ?? 'beans url'} alt="Image Not Available" />
