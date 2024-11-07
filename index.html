@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
   </head>
-  <body>
+  <body onload="document.body.style.visibility=`visible`;">
     <div id="modal"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>document.body.style.visibility=`hidden`;</script>
+    <noscript><style>body { visibility: visible; }</style></noscript>
   </body>
 </html>

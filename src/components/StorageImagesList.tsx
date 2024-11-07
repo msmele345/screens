@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import { ChangeEvent, useContext } from "react";
 import AppContext from "../store/AppContext";
-import BlobImageItem from "./BlobImageItem";
 import { getImageName } from "../util/StringUtils";
-import axios from "axios";
+import BlobImageItem from "./BlobImageItem";
 
 export interface ImagesListProps {
     images: Record<string, unknown>[];
@@ -26,16 +25,17 @@ const StorageImagesList = ({ images = [] }: ImagesListProps) => {
 
     const appContext = useContext(AppContext);
 
-    const imageClickHandler = async (e: any) => {
-        const url = e.target.attributes[0].textContent as string;
-        appContext.setSelectedImage({ name: getImageName(url), url:  e.target.attributes[0].textContent});
+    const imageClickHandler = async (event: ChangeEvent<HTMLImageElement>) => {
+        const url = (event.target as HTMLImageElement).src as string
+        console.log("IMAGE_CLICK_HANDLER_() e {}: ", url);
+        appContext.setSelectedImage({ name: getImageName(url), url:  url});
 
-        const statusResponse = await axios.post('http://localhost:8080/status', {
-            currentStatus: "VIEWED",
-            imageName: getImageName(url)
-        });
+        // const statusResponse = await axios.post('http://localhost:8080/status', {
+        //     currentStatus: "VIEWED",
+        //     imageName: getImageName(url)
+        // });
 
-        console.log("STATUS RES: ", statusResponse.data);
+        // console.log("STATUS RES: ", statusResponse.data);
     }
 
     return (

@@ -1,4 +1,3 @@
-import { BlobServiceClient } from '@azure/storage-blob';
 import './App.css'
 import Header from './UI/Header';
 import { useEffect, useState } from 'react';
@@ -22,12 +21,12 @@ export interface ImageBlob {
 function App() {
   const [selectedImage, setSelectedImage] = useState<ClickedImage | null>(null);
 
-  useEffect(() => {
-    console.log("TOP LEVEL SELECTED IMAGE: ", selectedImage);
-  }, [selectedImage]);
-
   const selectedImageHandler = (imageDetails: ClickedImage) => {
     setSelectedImage(imageDetails);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
   }
 
   return (
@@ -38,7 +37,11 @@ function App() {
           <ImageGallery />
         </div>
         : (
-          selectedImage && <GenericModal imageName={selectedImage?.name ?? ""} imageUrl={selectedImage?.url ?? ""} />
+          selectedImage && <GenericModal 
+                              imageName={selectedImage?.name ?? ""} 
+                              imageUrl={selectedImage?.url ?? ""} 
+                              onClose={closeModal}
+                            />
         )
       }
     </AppContext.Provider>

@@ -10,6 +10,7 @@ export type ClickedImage = {
 export interface AppContextValues {
     setSelectedImage: (imageDetails: ClickedImage) => void; 
     selectedImage: ClickedImage | null;
+    imageUrls?: Record<string, unknown>[]
 }
 
 const defaultAppState: AppContextValues = {

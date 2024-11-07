@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { parseFileName } from "./StorageImagesList";
 
 interface BlobImageItemProps {
@@ -12,10 +12,9 @@ interface BlobImageItemProps {
 const BlobImageItem = ({ imageName, imageUrl, onClickHandler }: BlobImageItemProps) => {
 
     return (
-        <div className='card' onClick={onClickHandler}>
-            <img src={imageUrl as string ?? 'beans url'} alt="Image Not Available" />
+        <div className='card'>
+            <img src={imageUrl as string ?? 'beans url'} onClick={onClickHandler} alt="Image Not Available" />
             <h3 style={{ color: '#d9c9ee'}}>{parseFileName(imageName as string)}</h3>
-            {/* <button className="del" onClick={() => handleDelete(blobItem.name)} > <AiFillDelete /> </button> */}
         </div>
     )
 }

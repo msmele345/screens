@@ -1,5 +1,5 @@
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import getContainerClient from "../storage/storageclient";
 
 interface UploadFormProps {
@@ -10,6 +10,10 @@ interface UploadFormProps {
 const UploadForm = ({ refreshImages, isLoading }: UploadFormProps) => {
 
     const [file, setFile] = useState<any>(null);
+
+    useEffect(() => {
+        console.log("HERE IN UPLOAD with selected file:  ", file)
+    }, [file]);
 
     const containerClient = getContainerClient();
 
@@ -22,15 +26,15 @@ const UploadForm = ({ refreshImages, isLoading }: UploadFormProps) => {
 
         try {
             isLoading(true);
-            const blobName = `${new Date().getFullYear()}-${file.name as string}`; // Specify a default blob name if needed
-            const blobClient = containerClient.getBlockBlobClient(blobName);  // get the blob client
+            const blobName = `${new Date().getFullYear()}-${file.name as string}`;
+            const blobClient = containerClient.getBlockBlobClient(blobName);  
             console.log("HERE IN BLOB UPLOAD PAST CLIENT")
-            await blobClient.uploadData(file, { blobHTTPHeaders: { blobContentType: file.type } }); // upload the image
-            await refreshImages();   // fetch all images again after the upload is completed
+            await blobClient.uploadData(file, { blobHTTPHeaders: { blobContentType: file.type } }); 
+            // await refreshImages();  
         } catch (error) {
             console.error("Upload Error", error);  // Handle error
         } finally {
-            isLoading(false); // Turn off loading
+            isLoading(false); 
         }
     };
 

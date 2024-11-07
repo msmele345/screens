@@ -7,7 +7,9 @@ import UploadForm from "./UploadForm";
 export interface HomePageProps {
     containerClient: ContainerClient;
 }
-
+//move fetch to app
+//set urls in app context
+//remove use effective on app.tsx b/c it might be causing the issues with
 
 const ImageGallery = () => {
 

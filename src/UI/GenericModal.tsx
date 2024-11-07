@@ -1,4 +1,5 @@
-import { ReactElement, useEffect, useRef } from "react";
+import { ReactElement } from "react";
+import ConcertIcon from '../assets/concert2.jpg';
 import { parseFileName } from "../components/StorageImagesList";
 
 export interface GenericModalProps {
@@ -11,20 +12,14 @@ export interface GenericModalProps {
 
 function GenericModal({ onClose, imageName, imageUrl, className = "" }: GenericModalProps): ReactElement {
 
-  useEffect(() => {
-    console.log("MODAL PROPS: ", imageUrl);
-  }, []);
-
   return (
     <>
       <div className={"backdrop"} onClick={onClose} />
       <dialog open className={`modal ${className}`}>
-        <img src={imageUrl as string ?? 'beans url'} alt="Image Not Available" />
+        <img src={imageUrl as string || ConcertIcon } alt="Image Not Available" />
         <div className="modal-dialogue">
           <h3 className="modal-header">{parseFileName(imageName)}</h3>
-          <form action="dialog">
-            <button>Close</button>
-          </form>
+            <button className="button" onClick={onClose}>Close</button>
         </div>
       </dialog>
     </>
