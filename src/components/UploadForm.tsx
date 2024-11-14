@@ -1,66 +1,58 @@
-import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import getContainerClient from "../storage/storageclient";
+import { useState } from "react";
+import { BlobServiceClient } from '@azure/storage-blob';
+import UploadPreviewWindow from "./UploadPreviewWindow";
 
 interface UploadFormProps {
     refreshImages: () => Promise<void>;
-    isLoading: Dispatch<SetStateAction<boolean>>;
-}
+};
 
-const UploadForm = ({ refreshImages, isLoading }: UploadFormProps) => {
+const blobServiceClient = new BlobServiceClient('');
+const containerName = "sa1";
+const containerClient = blobServiceClient.getContainerClient(containerName);
+
+const UploadForm = ({ refreshImages }: UploadFormProps) => {
 
     const [file, setFile] = useState<any>(null);
 
-    useEffect(() => {
-        console.log("HERE IN UPLOAD with selected file:  ", file)
-    }, [file]);
-
-    const containerClient = getContainerClient();
-
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        if (!file) {  // check if the file is selected
+        if (!file) {  
             alert('Please select an image to upload');
             return;
         }
 
         try {
-            isLoading(true);
-            const blobName = `${new Date().getFullYear()}-${file.name as string}`;
-            const blobClient = containerClient.getBlockBlobClient(blobName);  
+            const blobName = file.name as string;
+            const blobClient = containerClient.getBlockBlobClient(blobName);
             console.log("HERE IN BLOB UPLOAD PAST CLIENT")
-            await blobClient.uploadData(file, { blobHTTPHeaders: { blobContentType: file.type } }); 
-            // await refreshImages();  
+            await blobClient.uploadData(file);
+            await refreshImages();
         } catch (error) {
-            console.error("Upload Error", error);  // Handle error
-        } finally {
-            isLoading(false); 
+            console.error("Upload Error", { error }); 
         }
     };
 
     const onChangeHandler = (e: any) => {
-        if(e.target && e.target.files) {
-            console.log("FILES: ", e.target.files)
+        if (e.target && e.target.files) {
             setFile(e.target.files[0])
         }
-    }
-
-    const setFormDisplay = () => {
-        return file ? <img className="displayImg" src={URL.createObjectURL(file)} alt="no pic" /> : <UploadFileIcon/>
     }
 
     return (
         <div className="row-form">
             <form className='upload-form'>
-                <div className='upload-form_display'>
+                {/* <div className='upload-form_display'>
                     {
                         file ? <img className="displayImg" src={URL.createObjectURL(file)} alt="no pic" /> : <></>
                     }
-                </div>
+                </div> */}
+                <UploadPreviewWindow file={file}/>
                 <div className='upload-form_inputs'>
-                    <label htmlFor="fileInput"> Click Here To Add an Image</label>
+                    <label htmlFor="fileInput">Click here to select image</label>
                     <input type="file" style={{ display: "none" }} id="fileInput" onChange={onChangeHandler} />
-                    <button type="submit" onClick={handleSubmit} >Upload</button>
+                    <div className='upload-button'>
+                        <button type="submit" onClick={handleSubmit} >Upload</button>
+                    </div>
                 </div>
             </form>
         </div>

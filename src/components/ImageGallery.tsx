@@ -51,7 +51,7 @@ const ImageGallery = () => {
             { !isFetchError && !isLoading &&
                 (
                     <div>
-                        <UploadForm refreshImages={fetchBlobs} isLoading={setIsLoading} />
+                        <UploadForm refreshImages={fetchBlobs} />
                         <TabLayoutContainer images={imageUrls} />
                     </div>
 

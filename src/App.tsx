@@ -1,9 +1,9 @@
-import './App.css'
-import Header from './UI/Header';
-import { useEffect, useState } from 'react';
-import AppContext, { ClickedImage } from './store/AppContext';
+import { useState } from 'react';
+import './App.css';
 import ImageGallery from './components/ImageGallery';
+import AppContext, { ClickedImage } from './store/AppContext';
 import GenericModal from './UI/GenericModal';
+import Header from './UI/Header';
 
 
 export interface Screen {
