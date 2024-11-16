@@ -1,5 +1,7 @@
-import { useState } from "react";
 import { BlobServiceClient } from '@azure/storage-blob';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Button from "@mui/material/Button";
+import { useState } from "react";
 import UploadPreviewWindow from "./UploadPreviewWindow";
 
 interface UploadFormProps {
@@ -16,7 +18,7 @@ const UploadForm = ({ refreshImages }: UploadFormProps) => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        if (!file) {  
+        if (!file) {
             alert('Please select an image to upload');
             return;
         }
@@ -28,7 +30,7 @@ const UploadForm = ({ refreshImages }: UploadFormProps) => {
             await blobClient.uploadData(file);
             await refreshImages();
         } catch (error) {
-            console.error("Upload Error", { error }); 
+            console.error("Upload Error", { error });
         }
     };
 
@@ -41,18 +43,23 @@ const UploadForm = ({ refreshImages }: UploadFormProps) => {
     return (
         <div className="row-form">
             <form className='upload-form'>
-                {/* <div className='upload-form_display'>
-                    {
-                        file ? <img className="displayImg" src={URL.createObjectURL(file)} alt="no pic" /> : <></>
-                    }
-                </div> */}
-                <UploadPreviewWindow file={file}/>
+                <UploadPreviewWindow file={file} />
                 <div className='upload-form_inputs'>
-                    <label htmlFor="fileInput">Click here to select image</label>
+                    <label htmlFor="fileInput">Click here to add image</label>
                     <input type="file" style={{ display: "none" }} id="fileInput" onChange={onChangeHandler} />
                     <div className='upload-button'>
-                        <button type="submit" onClick={handleSubmit} >Upload</button>
+                        <Button 
+                            type='submit' 
+                            variant="contained" 
+                            color="secondary" 
+                            disableElevation 
+                            onClick={handleSubmit}
+                            startIcon={<CloudUploadIcon/>}
+                        >
+                           Upload
+                        </Button>
                     </div>
+                {/* <FileUploadButton/> TODO */}
                 </div>
             </form>
         </div>

@@ -112,9 +112,8 @@ body {
 }
 
 
-.header img {
-  width: 95%;
-  height: 30rem;
+.header video {  
+  height: 45rem;
   /* object-fit: contain; */
   background-color: transparent;
   margin-bottom: 10px;
@@ -183,13 +182,17 @@ button:hover {
   padding: 1rem;
 }
 .upload-form_inputs > label {
-  font-size: 1rem;
-  color: rgb(84, 162, 84);
+  /* font-size: 1rem; */
+  /* color: rgb(84, 162, 84); */
+  font-family: 'Quicksand', sans-serif;
+  color: #d9c9ee;
+  /* background-color: rgb(113, 25, 176); */ 
 }
 .upload-form_inputs > label :hover {
  cursor: pointer;
  color:  rgb(113, 25, 176);
 }
+
 .upload-form_display {
   width: 70%;
   align-items: center;
@@ -197,10 +200,10 @@ button:hover {
 }
 
 .upload-button > button {
-  display: contents;
-  font-size: 1.5rem;
-  color: rgb(84, 162, 84);
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-family: 'Quicksand', sans-serif;
+  color: whitesmoke;
+  font-weight: 600;
 }
 
 .upload-form_inputs > select {
