@@ -14,11 +14,14 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-const FileUploadButton = () => {
+interface FileUploadButtonProps {
+  onChangeHandler: (e: any) => void;
+}
+
+const FileUploadButton = ({ onChangeHandler }: FileUploadButtonProps) => {
   return (
     <Button
       component="label"
-    //   type='submit'
       role={undefined}
       variant="contained"
       tabIndex={-1}
@@ -34,7 +37,7 @@ const FileUploadButton = () => {
       Upload Image
       <VisuallyHiddenInput
         type="file"
-        onChange={(event) => console.log(event.target.files)}
+        onChange={(event) => onChangeHandler(event)}
         multiple
       />
     </Button>

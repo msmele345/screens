@@ -2,6 +2,7 @@ import { ChangeEvent, useContext } from "react";
 import AppContext from "../store/AppContext";
 import { getImageName } from "../util/StringUtils";
 import BlobImageItem from "./BlobImageItem";
+import axios, { AxiosResponse } from "axios";
 
 export interface ImagesListProps {
     images: Record<string, unknown>[];
@@ -21,21 +22,31 @@ export const parseFileName = (filename?: string): string => {
     return name;
 }
 
+type StatusResponse = {
+    resultStatus: string
+};
+
 const StorageImagesList = ({ images = [] }: ImagesListProps) => {
 
     const appContext = useContext(AppContext);
 
     const imageClickHandler = async (event: ChangeEvent<HTMLImageElement>) => {
         const url = (event.target as HTMLImageElement).src as string
-        console.log("IMAGE_CLICK_HANDLER_() e {}: ", url);
         appContext.setSelectedImage({ name: getImageName(url), url:  url});
 
-        // const statusResponse = await axios.post('http://localhost:8080/status', {
-        //     currentStatus: "VIEWED",
-        //     imageName: getImageName(url)
-        // });
+        let statusResponse: AxiosResponse<StatusResponse>;
 
-        // console.log("STATUS RES: ", statusResponse.data);
+        try {
+          statusResponse = await axios.post('http://localhost:8086/image-status', {
+                id: crypto.randomUUID(),
+                currentStatus: "VIEWED",
+                imageName: getImageName(url)
+            });
+            console.log("IMAGE STATUS HTTP CALL SUCCESS. RESPONSE: ", statusResponse.data);
+        } catch(e: any) {
+            console.error('IMAGE STATUS HTTP ERROR', {e});
+        }
+
     }
 
     return (

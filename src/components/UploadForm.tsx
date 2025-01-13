@@ -8,7 +8,8 @@ interface UploadFormProps {
     refreshImages: () => Promise<void>;
 };
 
-const blobServiceClient = new BlobServiceClient('');
+//remove /sa1 from url given by the portal
+const blobServiceClient = new BlobServiceClient('https://reactblob1.blob.core.windows.net/?sp=racwl&st=2024-12-04T14:27:24Z&se=2024-12-09T22:27:24Z&spr=https&sv=2022-11-02&sr=c&sig=V2or0bnzoI52D7LMmFizQzoz3MSNF%2FJuhH5u%2FbpPVew%3D');
 const containerName = "sa1";
 const containerClient = blobServiceClient.getContainerClient(containerName);
 
@@ -59,7 +60,6 @@ const UploadForm = ({ refreshImages }: UploadFormProps) => {
                            Upload
                         </Button>
                     </div>
-                {/* <FileUploadButton/> TODO */}
                 </div>
             </form>
         </div>

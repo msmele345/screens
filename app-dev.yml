@@ -15,9 +15,11 @@ properties:
             memoryInGb: 1.0
     - name: app
       properties:
-        image: mmdevregistry.azurecr.io/apps:grievbox-9
+        image: mmacr2932.azurecr.io/screens:dev
         ports:
-          - port: 8080
+          - port: 80
+            protocol: TCP
+          - port: 8082
             protocol: TCP
         resources:
           requests:
