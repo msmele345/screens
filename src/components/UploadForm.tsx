@@ -3,13 +3,14 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import UploadPreviewWindow from "./UploadPreviewWindow";
+import '../index.css';
 
 interface UploadFormProps {
     refreshImages: () => Promise<void>;
 };
 
 //remove /sa1 from url given by the portal
-const blobServiceClient = new BlobServiceClient('https://reactblob1.blob.core.windows.net/?sp=racwl&st=2024-12-04T14:27:24Z&se=2024-12-09T22:27:24Z&spr=https&sv=2022-11-02&sr=c&sig=V2or0bnzoI52D7LMmFizQzoz3MSNF%2FJuhH5u%2FbpPVew%3D');
+const blobServiceClient = new BlobServiceClient('');
 const containerName = "sa1";
 const containerClient = blobServiceClient.getContainerClient(containerName);
 
