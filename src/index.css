@@ -324,3 +324,12 @@ button:hover {
 .result-modal button:hover {
   background: #051715;
 }
+
+.feedback-form-container {
+  display: block;
+}
+
+.feedback-form-error {
+  font-weight: 600;
+  color: red;
+}

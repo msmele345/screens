@@ -8,6 +8,7 @@ interface UploadFormProps {
     refreshImages: () => Promise<void>;
 };
 
+            
 const blobServiceClient = new BlobServiceClient('');
 const containerName = "sa1";
 const containerClient = blobServiceClient.getContainerClient(containerName);

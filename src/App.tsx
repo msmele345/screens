@@ -4,6 +4,7 @@ import ImageGallery from './components/ImageGallery';
 import AppContext, { ClickedImage } from './store/AppContext';
 import GenericModal from './UI/GenericModal';
 import Header from './UI/Header';
+import FeedbackForm from './components/FeedbackForm';
 
 
 export interface Screen {
@@ -28,23 +29,27 @@ function App() {
   const closeModal = () => {
     setSelectedImage(null);
   }
-
+  //create user feedback component
   return (
-    <AppContext.Provider value={{ setSelectedImage: selectedImageHandler, selectedImage: selectedImage }}>
-      {!selectedImage ?
-        <div>
-          <Header />
-          <ImageGallery />
-        </div>
-        : (
-          selectedImage && <GenericModal 
-                              imageName={selectedImage?.name ?? ""} 
-                              imageUrl={selectedImage?.url ?? ""} 
-                              onClose={closeModal}
-                            />
-        )
-      }
-    </AppContext.Provider>
+    <div className='wrapper-container'>
+      <AppContext.Provider value={{ setSelectedImage: selectedImageHandler, selectedImage: selectedImage }}>
+        {!selectedImage ?
+          <div>
+            <Header />
+            <ImageGallery />
+          </div>
+          : (
+            selectedImage &&
+            <GenericModal
+              imageName={selectedImage?.name ?? ""}
+              imageUrl={selectedImage?.url ?? ""}
+              onClose={closeModal}
+            />
+          )
+        }
+        <FeedbackForm />
+      </AppContext.Provider>
+    </div>
   );
 };
 

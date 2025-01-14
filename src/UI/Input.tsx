@@ -1,26 +1,28 @@
-import { ChangeEventHandler, HTMLInputTypeAttribute } from "react";
+import { ChangeEventHandler } from "react";
 
 type InputProps = {
-    type: HTMLInputTypeAttribute,
     id: string,
+    value?: string
     cssClasses?: string,
     labelText: string,
     onChangeHandler?: ChangeEventHandler<HTMLInputElement> | undefined
 };
 
 const Input = (
-    { 
-      id, 
-      type, 
-      labelText, 
-      cssClasses,
-      onChangeHandler 
-   }: InputProps 
+    {
+        id,
+        value,
+        labelText,
+        cssClasses,
+        onChangeHandler
+    }: InputProps
 ) => {
     return (
         <>
-            <label htmlFor={id} className={cssClasses ?? ""}>{labelText}</label>
-            <input type={type} id={id} onChange={onChangeHandler} />
+            <div className="">
+                <label htmlFor={id} className={cssClasses ?? ""}>{labelText}</label>
+                <input value={value} id={id} onChange={onChangeHandler} />
+            </div >
         </>
     )
 };
