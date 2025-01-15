@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+import { Dispatch, SetStateAction, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { parseFileName } from '../components/StorageImagesList';
 

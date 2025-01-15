@@ -8,8 +8,7 @@ interface UploadFormProps {
     refreshImages: () => Promise<void>;
 };
 
-            
-const blobServiceClient = new BlobServiceClient('');
+const blobServiceClient = new BlobServiceClient('https://reactblob1.blob.core.windows.net/sa1?sp=r&st=2024-12-27T13:11:38Z&se=2025-01-04T21:11:38Z&spr=https&sv=2022-11-02&sr=c&sig=5iOFAp7pwOPKn%2BkehU%2FXOo1adUdtdhLVMziK9B3lmnU%3D');
 const containerName = "sa1";
 const containerClient = blobServiceClient.getContainerClient(containerName);
 

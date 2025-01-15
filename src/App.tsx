@@ -4,7 +4,7 @@ import ImageGallery from './components/ImageGallery';
 import AppContext, { ClickedImage } from './store/AppContext';
 import GenericModal from './UI/GenericModal';
 import Header from './UI/Header';
-import FeedbackForm from './components/FeedbackForm';
+import FeedbackContainer from './components/FeedbackContainer';
 
 
 export interface Screen {
@@ -47,7 +47,7 @@ function App() {
             />
           )
         }
-        <FeedbackForm />
+        <FeedbackContainer />
       </AppContext.Provider>
     </div>
   );

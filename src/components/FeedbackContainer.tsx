@@ -8,7 +8,7 @@ export interface FeedbackRequest {
     timestamp: string;
 }
 
-const FeedbackForm = () => {
+const FeedbackContainer = () => {
 
     const [currentContentValue, setCurrentContentValue] = useState('');
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -90,4 +90,4 @@ const FeedbackForm = () => {
     )
 };
 
-export default FeedbackForm;
+export default FeedbackContainer;
