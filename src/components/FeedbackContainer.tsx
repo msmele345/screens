@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
+import '../scss/feedbackForm.css';
 
 
 export interface FeedbackRequest {
@@ -41,28 +42,28 @@ const FeedbackContainer = () => {
         //validate form data first - WIP
         ///
         console.log("HERE submitHandler() start - AXIOS");
-        let response;
-        try {
-            response = await axios.post("http://localhost:8080/api/v2/feedback", {
-                email: formValues.email,
-                content: formValues.content,
-                submissionTime: new Date().toISOString()
-            })
-            console.log("Post Response: ", response.data, response.statusText);
-        } catch (e: any) {
-            console.log("HERE IN AXIOS ERROR")
-            response = { error: e.message || 'server error' }
-            setErrorMessage(response.error);
-        }
+        // let response;
+        // try {
+        //     response = await axios.post("http://localhost:8080/api/v2/feedback", {
+        //         email: formValues.email,
+        //         content: formValues.content,
+        //         submissionTime: new Date().toISOString()
+        //     })
+        //     console.log("Post Response: ", response.data, response.statusText);
+        // } catch (e: any) {
+        //     console.log("HERE IN AXIOS ERROR")
+        //     response = { error: e.message || 'server error' }
+        //     setErrorMessage(response.error);
+        // }
         setFormValues(defaultFormState);
     };
     //onSubmit function in form to validate value and fire api vall to new backend that connects blob storage or db directly
 
     return (
         <div className="feedback-form-container">
-            <h3 className="feedback-form-error">{errorMessage && `Error - ${errorMessage} `}</h3>
-            <h2>Got Feedback?</h2>
+            {/* <h3 className="feedback-form-error">{errorMessage && `Error - ${errorMessage} `}</h3> */}
             <form action="" onSubmit={onSubmitHandler}>
+                <h2>Got Feedback?</h2>
                 <div className="control-row">
                     <div className="control no-margin">
                         <label htmlFor="content">Drop Suggestions Here!</label>
@@ -70,6 +71,7 @@ const FeedbackContainer = () => {
                             value={formValues.content}
                             id="content"
                             name="content"
+                            type='text'
                             onChange={(e) => handleChange('content', e)} />
                     </div>
                     <div className="control no-margin">
