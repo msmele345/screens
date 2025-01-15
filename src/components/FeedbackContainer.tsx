@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 
 export interface FeedbackRequest {
@@ -8,39 +8,44 @@ export interface FeedbackRequest {
     timestamp: string;
 }
 
+export type FormValues = {
+    email: string,
+    content: string
+} //form combined state obj
+
+const defaultFormState = { email: '', content: '' };
+
 const FeedbackContainer = () => {
 
-    const [currentContentValue, setCurrentContentValue] = useState('');
+    const [formValues, setFormValues] = useState<FormValues>(defaultFormState);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
-    const [currentEmail, setCurrentEmail] = useState('');
 
-    const onInputChange = (e: any, id: string) => {
-        if (id == 'feedback-content') {
-            setCurrentContentValue(e.target.value)
-        }
 
-        if (id == 'feedback-email') {
-            setCurrentEmail(e.target.value);
-        }
-        //validate form input and set current value
-        //use ref if needed 
-    }
+    const handleChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {
+        console.log("Input Changed: " + e.target.value);
+        setFormValues(prevValues => ({
+            ...prevValues,
+            [id]: e.target.value
 
-    const buildFeedbackRequest = () => ({
-        email: currentEmail ?? '',
-        content: currentContentValue ?? '',
-        submissionTime: new Date().toISOString()
-    })
+        }));
+    };
 
     const onSubmitHandler = async (e: any) => {
         e.preventDefault();
-        //validate form data
-        console.log("HERE submitHandler() start - AXIOS")
+
+        e.preventDefault();
+
+        console.log("Email on Submit: ", formValues.email)
+        console.log("Content on Submit: ", formValues.content)
+
+        //validate form data first - WIP
+        ///
+        console.log("HERE submitHandler() start - AXIOS");
         let response;
         try {
             response = await axios.post("http://localhost:8080/api/v2/feedback", {
-                email: currentEmail ?? '',
-                content: currentContentValue ?? '',
+                email: formValues.email,
+                content: formValues.content,
                 submissionTime: new Date().toISOString()
             })
             console.log("Post Response: ", response.data, response.statusText);
@@ -49,8 +54,7 @@ const FeedbackContainer = () => {
             response = { error: e.message || 'server error' }
             setErrorMessage(response.error);
         }
-        setCurrentContentValue('');
-        setCurrentEmail('');
+        setFormValues(defaultFormState);
     };
     //onSubmit function in form to validate value and fire api vall to new backend that connects blob storage or db directly
 
@@ -58,33 +62,30 @@ const FeedbackContainer = () => {
         <div className="feedback-form-container">
             <h3 className="feedback-form-error">{errorMessage && `Error - ${errorMessage} `}</h3>
             <h2>Got Feedback?</h2>
-            <form action="submit" onSubmit={onSubmitHandler}>
-                <div className="">
-                    <label htmlFor={"feedback-content"}>Drop Suggestions Here!</label>
-                    <input value={currentContentValue}
-                        id={"feedback-content"}
-                        onChange={(e) => setCurrentContentValue(e.target.value)} />
-                </div >
-                <div className="">
-                    <label htmlFor={"feedback-email"}>{"Email"}</label>
-                    <input
-                        value={currentEmail}
-                        id={"feedback-email"}
-                        onChange={(e) => setCurrentEmail(e.target.value)} />
-                </div >
-                {/* <Input
-                    labelText="What do you want to see better?"
-                    onChangeHandler={(e) => setCurrentContentValue(e.target.value)}
-                    id="feedback-content"
-                    value={currentContentValue}
-                />
-                <Input
-                    labelText="Email"
-                    id="feedback-email"
-                    value={currentEmail}
-                    onChangeHandler={(e) => setCurrentEmail(e.target.value)}
-                /> */}
-                <button type="submit">Submit Feedback</button>
+            <form action="" onSubmit={onSubmitHandler}>
+                <div className="control-row">
+                    <div className="control no-margin">
+                        <label htmlFor="content">Drop Suggestions Here!</label>
+                        <input
+                            value={formValues.content}
+                            id="content"
+                            name="content"
+                            onChange={(e) => handleChange('content', e)} />
+                    </div>
+                    <div className="control no-margin">
+                        <label htmlFor="email">{"Email"}</label>
+                        <input
+                            value={formValues.email}
+                            id="email"
+                            name="email"
+                            type='email'
+                            onChange={(e) => handleChange('email', e)} />
+                    </div >
+                </div>
+                <p className="form-actions">
+                    <button className="button button-flat">Reset</button>
+                    <button className="button">Submit Feedback</button>
+                </p>
             </form>
         </div>
     )
