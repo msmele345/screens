@@ -1,14 +1,29 @@
 import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
+import '../scss/feedbackform.css';
+
+const defaultFormState = { email: '', password: '' };
 
 export type FormValues = {
     email: string,
     password: string
-} //form combined state obj
+}; //form combined state obj
 
-const defaultFormState = { email: '', password: '' };
 
 const FeedbackContainer = (): ReactElement => {
     const [formValues, setFormValues] = useState<FormValues>(defaultFormState);
+    const [inputTouched, setInputTouched] = useState({
+        email: false,
+        password: false
+    })
+
+    const emailIsValid: boolean = inputTouched.email && formValues.email.trim().includes('@');
+
+    const handleInputBlur = (id: string) => {
+        setInputTouched(prevValues => ({
+            ...prevValues,
+            [id]: true
+        }))
+    };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -27,12 +42,16 @@ const FeedbackContainer = (): ReactElement => {
             [id]: e.target.value
 
         }));
+        setInputTouched(prevValues => ({
+            ...prevValues,
+            [id]: false
+        })) //remove the error when the user starts typing again after getting an error message
     };
 
     return (
         <div className="feedback-form-container">
             <form action="" onSubmit={handleSubmit}>
-                <h2>Login</h2>
+                <h2>Got Feedback?</h2>
 
                 <div className="control-row">
                     <div className="control no-margin">
@@ -41,9 +60,13 @@ const FeedbackContainer = (): ReactElement => {
                             id="email"
                             type="email"
                             name="email"
+                            onBlur={() => handleInputBlur('email')}
                             value={formValues.email}
                             onChange={(e) => handleChange('email', e)}
                         />
+                        <div className="control-error">
+                            {inputTouched.email && !emailIsValid && <p>Please Enter a Valid Email Address</p>}
+                        </div>
                     </div>
 
                     <div className="control no-margin">
@@ -53,7 +76,7 @@ const FeedbackContainer = (): ReactElement => {
                             type="password"
                             name="password"
                             value={formValues.password}
-                            onChange={(e) => handleChange('password', e)} 
+                            onChange={(e) => handleChange('password', e)}
                         />
                     </div>
                 </div>

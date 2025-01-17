@@ -35,17 +35,19 @@ function App() {
       {!selectedImage ?
         <div>
           <Header />
-          <ImageGallery />
+          <main>
+            <ImageGallery />
+          </main>
         </div>
         : (
-          selectedImage && <GenericModal 
-                              imageName={selectedImage?.name ?? ""} 
-                              imageUrl={selectedImage?.url ?? ""} 
-                              onClose={closeModal}
-                            />
+          selectedImage && <GenericModal
+            imageName={selectedImage?.name ?? ""}
+            imageUrl={selectedImage?.url ?? ""}
+            onClose={closeModal}
+          />
         )
       }
-      <FeedbackContainer/>
+      <FeedbackContainer />
     </AppContext.Provider>
   );
 };
