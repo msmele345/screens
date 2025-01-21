@@ -2,19 +2,28 @@ import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
 import '../scss/feedbackform.css';
 
 const defaultFormState = { email: '', password: '' };
+const defaultTouchedState = { email: false, password: false };
 
 export type FormValues = {
     email: string,
     password: string
 }; //form combined state obj
 
+export type InputStatus = {
+    value: string,
+    isValid: boolean;
+    isTouched: boolean
+};
+
+export type FormValues2 = {
+    email: InputStatus,
+    password: InputStatus
+}
+
 
 const FeedbackContainer = (): ReactElement => {
     const [formValues, setFormValues] = useState<FormValues>(defaultFormState);
-    const [inputTouched, setInputTouched] = useState({
-        email: false,
-        password: false
-    })
+    const [inputTouched, setInputTouched] = useState(defaultTouchedState);
 
     const emailIsValid: boolean = inputTouched.email && formValues.email.trim().includes('@');
 
@@ -33,6 +42,7 @@ const FeedbackContainer = (): ReactElement => {
         //validation
 
         setFormValues(defaultFormState);
+        setInputTouched(defaultTouchedState);
     };
 
     const handleChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {

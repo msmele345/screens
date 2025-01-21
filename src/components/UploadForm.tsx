@@ -10,7 +10,7 @@ interface UploadFormProps {
 };
 
 //remove /sa1 from url given by the portal
-const blobServiceClient = new BlobServiceClient(''); //use SAS
+const blobServiceClient = new BlobServiceClient('');
 const containerName = "sa1";
 const containerClient = blobServiceClient.getContainerClient(containerName);
 
