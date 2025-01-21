@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent, ReactElement, useState } from "react";
 import '../scss/feedbackform.css';
-import BasicInput from "../UI/BasicInput";
 
 const defaultFormState = { email: '', password: '' };
 const defaultTouchedState = { email: false, password: false };
@@ -22,9 +21,10 @@ export type FormValues2 = {
 }
 
 
-const FeedbackContainer = (): ReactElement => {
+const FeedbackFormSubmitValidator = (): ReactElement => {
     const [formValues, setFormValues] = useState<FormValues>(defaultFormState);
     const [inputTouched, setInputTouched] = useState(defaultTouchedState);
+    const [emailIsInvalid, setEmailIsInvalid] = useState(false);
 
     const emailIsValid: boolean = inputTouched.email && formValues.email.trim().includes('@');
 
@@ -37,6 +37,13 @@ const FeedbackContainer = (): ReactElement => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if(!emailIsValid) {
+            setEmailIsInvalid(true);
+            return;
+        }
+
+        setEmailIsInvalid(false);
 
         console.log("Email on Submit: ", formValues.email)
         console.log("Password on Submit: ", formValues.password)
@@ -78,15 +85,6 @@ const FeedbackContainer = (): ReactElement => {
                         <div className="control-error">
                             {inputTouched.email && !emailIsValid && <p>Please Enter a Valid Email Address</p>}
                         </div>
-                        <BasicInput
-                            id="email"
-                            type="email"
-                            name="email"
-                            onBlur={() => handleInputBlur('email')}
-                            value={formValues.email}
-                            onChange={(e) => handleChange('email', e)}
-                            label="Email"
-                        />
                     </div>
 
                     <div className="control no-margin">
@@ -110,4 +108,4 @@ const FeedbackContainer = (): ReactElement => {
     )
 };
 //type button prevents submitting by default
-export default FeedbackContainer;
+export default FeedbackFormSubmitValidator;
