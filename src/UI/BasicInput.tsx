@@ -10,7 +10,7 @@ interface BasicInputProps extends ComponentPropsWithoutRef<'input'> {
 const BasicInput = ({ id, label, error, ...rest }: BasicInputProps) => {
     return (
         <div className="control no-margin">
-            <label htmlFor={id}>Email</label>
+            <label htmlFor={id}>{label}</label>
             <input
                 id={id}
                 {...rest}
