@@ -5,7 +5,7 @@ import AppContext, { ClickedImage } from './store/AppContext';
 import GenericModal from './UI/GenericModal';
 import Header from './UI/Header';
 import FeedbackContainer from './components/FeedbackContainer';
-
+import Signup from './components/Signup';
 
 export interface Screen {
   title: string;
@@ -31,23 +31,26 @@ function App() {
   }
   //create user feedback component
   return (
-    <div className='wrapper-container'>
+    <div>
+      {/* <Signup/> */}
       <AppContext.Provider value={{ setSelectedImage: selectedImageHandler, selectedImage: selectedImage }}>
-        {!selectedImage ?
-          <div>
-            <Header />
-            <ImageGallery />
-          </div>
-          : (
-            selectedImage &&
-            <GenericModal
-              imageName={selectedImage?.name ?? ""}
-              imageUrl={selectedImage?.url ?? ""}
-              onClose={closeModal}
-            />
-          )
-        }
-        <FeedbackContainer />
+        <main>
+          {!selectedImage ?
+            <div>
+              <Header />
+              <ImageGallery />
+            </div>
+            : (
+              selectedImage &&
+              <GenericModal
+                imageName={selectedImage?.name ?? ""}
+                imageUrl={selectedImage?.url ?? ""}
+                onClose={closeModal}
+              />
+            )
+          }
+          <FeedbackContainer />
+        </main>
       </AppContext.Provider>
     </div>
   );

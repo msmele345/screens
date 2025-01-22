@@ -2,6 +2,7 @@ import { ChangeEvent, useContext } from "react";
 import AppContext from "../store/AppContext";
 import { getImageName } from "../util/StringUtils";
 import BlobImageItem from "./BlobImageItem";
+import postUserEvent from "../api/UserEventApi";
 
 export interface ImagesListProps {
     images: Record<string, unknown>[];
@@ -27,22 +28,19 @@ const StorageImagesList = ({ images = [] }: ImagesListProps) => {
 
     const imageClickHandler = async (event: ChangeEvent<HTMLImageElement>) => {
         const url = (event.target as HTMLImageElement).src as string
+
         console.log("IMAGE_CLICK_HANDLER_() e {}: ", url);
-        appContext.setSelectedImage({ name: getImageName(url), url:  url});
 
-        // const statusResponse = await axios.post('http://localhost:8080/status', {
-        //     currentStatus: "VIEWED",
-        //     imageName: getImageName(url)
-        // });
-
-        // console.log("STATUS RES: ", statusResponse.data);
+        appContext.setSelectedImage({ name: getImageName(url), url: url });
+        //post for processing + tracking
+        postUserEvent('VIEWED', url);
     }
 
     return (
         <div className="card-container">
             {images && images.map((blob, index) => {
                 return (
-                    <div key={index} style={{margin: "3px"}}>
+                    <div key={index} style={{ margin: "3px" }}>
                         <BlobImageItem
                             imageName={blob.name as string ?? ""}
                             imageUrl={blob.url as string}

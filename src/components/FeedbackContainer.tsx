@@ -1,6 +1,6 @@
-import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import '../scss/feedbackForm.css';
+import postFeedback from "../api/FeedbackApi";
 
 
 export interface FeedbackRequest {
@@ -21,7 +21,6 @@ const FeedbackContainer = () => {
     const [formValues, setFormValues] = useState<FormValues>(defaultFormState);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-
     const handleChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {
         console.log("Input Changed: " + e.target.value);
         setFormValues(prevValues => ({
@@ -31,37 +30,40 @@ const FeedbackContainer = () => {
         }));
     };
 
+    //TODO
+    //add test
+    //validate call to back end works
+    //deploy to azure
+    //add sas to env variables/key vault
+
     const onSubmitHandler = async (e: any) => {
         e.preventDefault();
 
-        e.preventDefault();
+        console.log("Email on Submit: ", formValues.email);
+        console.log("Content on Submit: ", formValues.content);
 
-        console.log("Email on Submit: ", formValues.email)
-        console.log("Content on Submit: ", formValues.content)
+        const emailIsValid = formValues.email && formValues.email.includes('@');
 
+        if (!emailIsValid) {
+            setErrorMessage("Please Enter a Valid Email Address");
+            return;
+        }
         //validate form data first - WIP
-        ///
         console.log("HERE submitHandler() start - AXIOS");
-        // let response;
-        // try {
-        //     response = await axios.post("http://localhost:8080/api/v2/feedback", {
-        //         email: formValues.email,
-        //         content: formValues.content,
-        //         submissionTime: new Date().toISOString()
-        //     })
-        //     console.log("Post Response: ", response.data, response.statusText);
-        // } catch (e: any) {
-        //     console.log("HERE IN AXIOS ERROR")
-        //     response = { error: e.message || 'server error' }
-        //     setErrorMessage(response.error);
-        // }
+        try {
+            const serverResponse = postFeedback(formValues.email, formValues.content)
+            console.log("Post Response: ", serverResponse);
+        } catch (e: any) {
+            console.log("HERE IN AXIOS ERROR")
+            setErrorMessage(e.message || 'server error');
+        }
         setFormValues(defaultFormState);
     };
     //onSubmit function in form to validate value and fire api vall to new backend that connects blob storage or db directly
 
     return (
         <div className="feedback-form-container">
-            {/* <h3 className="feedback-form-error">{errorMessage && `Error - ${errorMessage} `}</h3> */}
+            <h3 className="feedback-form-error">{errorMessage && `Error - ${errorMessage} `}</h3>
             <form action="" onSubmit={onSubmitHandler}>
                 <h2>Got Feedback?</h2>
                 <div className="control-row">

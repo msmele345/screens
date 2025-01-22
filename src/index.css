@@ -50,17 +50,6 @@ body {
   box-shadow: 0 2px 30px rgba(234, 78, 240, 0.4);
 }
 
-
-/* old */
-/* .card {
-  background-color: #2e6999;
-  color: #333;
-  border-radius: 15px;
-  padding: 40px 50px;
-  margin: 20px 0;
-  position: relative;
-} */
-
 .card-container {
   display: flex;
   flex-direction: row;
@@ -113,7 +102,7 @@ body {
 
 
 .header video {  
-  height: 45rem;
+  height: 40rem;
   /* object-fit: contain; */
   background-color: transparent;
   margin-bottom: 10px;
@@ -168,7 +157,7 @@ button:hover {
 
 .upload-form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 10px;
   width: auto;
   text-align: center;
