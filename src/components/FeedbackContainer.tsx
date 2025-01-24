@@ -2,7 +2,6 @@ import { ChangeEvent, useState } from "react";
 import '../scss/feedbackForm.css';
 import postFeedback from "../api/FeedbackApi";
 
-
 export interface FeedbackRequest {
     email?: string;
     content: string;
@@ -30,12 +29,6 @@ const FeedbackContainer = () => {
         }));
     };
 
-    //TODO
-    //add test
-    //validate call to back end works
-    //deploy to azure
-    //add sas to env variables/key vault
-
     const onSubmitHandler = async (e: any) => {
         e.preventDefault();
 
@@ -48,10 +41,8 @@ const FeedbackContainer = () => {
             setErrorMessage("Please Enter a Valid Email Address");
             return;
         }
-        //validate form data first - WIP
-        console.log("HERE submitHandler() start - AXIOS");
         try {
-            const serverResponse = postFeedback(formValues.email, formValues.content)
+            const serverResponse = await postFeedback(formValues.email, formValues.content)
             console.log("Post Response: ", serverResponse);
         } catch (e: any) {
             console.log("HERE IN AXIOS ERROR")
@@ -73,8 +64,12 @@ const FeedbackContainer = () => {
                             value={formValues.content}
                             id="content"
                             name="content"
+                            required={true}
                             type='text'
-                            onChange={(e) => handleChange('content', e)} />
+                            onChange={(e) => handleChange('content', e)}/>
+                        <div className="control-error">
+                            {errorMessage && <p>{errorMessage}</p>}
+                        </div>
                     </div>
                     <div className="control no-margin">
                         <label htmlFor="email">{"Email"}</label>
