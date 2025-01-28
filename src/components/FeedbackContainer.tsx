@@ -19,9 +19,9 @@ const FeedbackContainer = () => {
 
     const [formValues, setFormValues] = useState<FormValues>(defaultFormState);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [formError, setFormError] = useState<string | null>(null);
 
     const handleChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {
-        console.log("Input Changed: " + e.target.value);
         setFormValues(prevValues => ({
             ...prevValues,
             [id]: e.target.value
@@ -38,14 +38,13 @@ const FeedbackContainer = () => {
         const emailIsValid = formValues.email && formValues.email.includes('@');
 
         if (!emailIsValid) {
-            setErrorMessage("Please Enter a Valid Email Address");
+            setFormError("Please Enter a Valid Email Address");
             return;
         }
         try {
             const serverResponse = await postFeedback(formValues.email, formValues.content)
             console.log("Post Response: ", serverResponse);
         } catch (e: any) {
-            console.log("HERE IN AXIOS ERROR")
             setErrorMessage(e.message || 'server error');
         }
         setFormValues(defaultFormState);
@@ -68,7 +67,7 @@ const FeedbackContainer = () => {
                             type='text'
                             onChange={(e) => handleChange('content', e)}/>
                         <div className="control-error">
-                            {errorMessage && <p>{errorMessage}</p>}
+                            {formError && <p>{formError}</p>}
                         </div>
                     </div>
                     <div className="control no-margin">

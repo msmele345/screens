@@ -54,7 +54,6 @@ const FeedbackFormSubmitValidator = (): ReactElement => {
     };
 
     const handleChange = (id: string, e: ChangeEvent<HTMLInputElement>) => {
-        console.log("Input Changed: " + e.target.value);
         setFormValues(prevValues => ({
             ...prevValues,
             [id]: e.target.value

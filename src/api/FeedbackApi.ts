@@ -4,7 +4,7 @@ import { ServiceResponse } from "./UserEventApi";
 export default async function postFeedback(email: string, content: string) {
     const res: AxiosResponse<ServiceResponse> = await axios
         .post(
-            "http://localhost:8092/api/v2/feedback",
+            "http://localhost:8080/api/v2/feedback",
             {
                 email: email,
                 content: content,
