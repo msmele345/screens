@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite -- --unhandled-rejections=strict",
+    "dev": "vite",
     "build": "tsc && vite build",
     "test": "vitest",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 80",
@@ -22,6 +22,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "uuid": "^11.0.5"
+  },
+  "overrides": {
+    "esbuild": "0.21.5"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.5.0",

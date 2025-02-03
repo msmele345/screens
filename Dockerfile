@@ -29,9 +29,11 @@ CMD [ "npm", "run", "dev" ]
 #     --repository sample/hello-world --output table
 
 #create container instance using acr image. az container create .. (from portal ??)
-# az container show --resource-group mmci2932 --name ram --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" --out table
+# az container show --resource-group mmcr2932 --name screensdev --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" --out table
 
-#mmacr2932.azurecr.io/ram:v2
+#mmacr2932.azurecr.io/screens:dev1
+#NEW:
+    #az container create --name screensdev --resource-group containerapps --image mmacr2932.azurecr.io/screens:dev1 --ports 8082 --dns-name-label screensdev --location westus --os-type Linux --cpu 1 --memory 1
 
 # az container create --resource-group containerapps --name screensc --image mmacr2932.azurecr.io/screens:dev1 --ports 8082 --dns-name-label screensc --location eastus
 # az acr create --resource-group containerapps --name screensb --sku basic

@@ -4,7 +4,7 @@ import { ServiceResponse } from "./UserEventApi";
 export default async function postFeedback(email: string, content: string) {
     const res: AxiosResponse<ServiceResponse> = await axios
         .post(
-            "http://localhost:8080/api/v2/feedback",
+            "https:/feedback-server.azurewebsites.net/api/v2/feedback",
             {
                 email: email,
                 content: content,
