@@ -18,7 +18,7 @@ export interface ImageBlob {
 };
 
 
-function App() {
+function Dashboard() {
   const [selectedImage, setSelectedImage] = useState<ClickedImage | null>(null);
 
   const selectedImageHandler = (imageDetails: ClickedImage) => {
@@ -28,7 +28,7 @@ function App() {
   const closeModal = () => {
     setSelectedImage(null);
   };
-  
+
   return (
     <div>
       <AppContext.Provider value={{ setSelectedImage: selectedImageHandler, selectedImage: selectedImage }}>
@@ -54,4 +54,4 @@ function App() {
   );
 };
 
-export default App;
+export default Dashboard;

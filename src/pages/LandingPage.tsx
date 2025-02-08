@@ -1,20 +1,33 @@
-import { ReactElement, Suspense } from "react";
+import { ReactElement, Suspense, useState } from "react";
 import { Routes, Route, NavLink } from "react-router";
-import App from "../App";
+import Dashboard from "../Dashboard";
 import Layout from "../UI/Layout";
+import AuthenticationPage from "../components/Auth/AuthenticationPage";
+import AuthProvider from "../store/AuthProvider";
+import ProtectedRoute from "./ProtectedRoute";
 
 
 const LandingPage = (): ReactElement => {
+
+  // const authContext = useContext()
+  //add auth context provider and wrap around routes
+  //pass loggedIn boolean to context
+  //Dashboard can use useEffect to check auth context value. If not logged in, 
+
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <AuthProvider>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<App />} />
+          <Route path="/" element={<AuthenticationPage />} />
+          <Route index path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
           <Route path="*" element={<NoMatch />} />
-          {/* <Route index element={<Login - placeholder />} /> */}
         </Route>
       </Routes>
-    </Suspense>
+    </AuthProvider>
   );
 };
 
