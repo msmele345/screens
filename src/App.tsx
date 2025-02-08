@@ -5,7 +5,6 @@ import AppContext, { ClickedImage } from './store/AppContext';
 import GenericModal from './UI/GenericModal';
 import Header from './UI/Header';
 import FeedbackContainer from './components/FeedbackContainer';
-import Signup from './components/Signup';
 
 export interface Screen {
   title: string;
@@ -28,11 +27,10 @@ function App() {
 
   const closeModal = () => {
     setSelectedImage(null);
-  }
-  //create user feedback component
+  };
+  
   return (
     <div>
-      {/* <Signup/> */}
       <AppContext.Provider value={{ setSelectedImage: selectedImageHandler, selectedImage: selectedImage }}>
         <main>
           {!selectedImage ?
