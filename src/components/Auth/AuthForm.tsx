@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent } from "react";
 import { Form } from "react-router"
 import classes from './AuthForm.module.css';
 import useAuth from "../../hooks/useAuth";
@@ -6,17 +6,17 @@ import useAuth from "../../hooks/useAuth";
 const AuthForm = () => {
     const { isLoggedIn, onLogin } = useAuth();
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //make api call TODO
-        //collect username and pwd from form, validate if needed. Pass to onLogin function
+        //collect username and pwd from form, 
+        //validate
+        //Pass to onLogin function
         onLogin("username", "password");
-        //
     }
     
     return (
         <form className="form" onSubmit={handleSubmit}>
-            <h1>{isLoggedIn ? 'Log in' : 'Create a new user'}</h1>
+            <h1>{ 'Log in' }</h1>
             <p>
                 <label htmlFor="email">Email</label>
                 <input id="email" type="email" name="email" required />
@@ -26,10 +26,7 @@ const AuthForm = () => {
                 <input id="password" type="password" name="password" required />
             </p>
             <div className={classes.actions}>
-                <button type="button">
-                    {isLoggedIn ? 'Create new user' : 'Login'}
-                </button>
-                <button>Submit</button>
+                <button>Login</button>
             </div>
         </form>
     )

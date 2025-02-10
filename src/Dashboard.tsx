@@ -5,6 +5,7 @@ import AppContext, { ClickedImage } from './store/AppContext';
 import GenericModal from './UI/GenericModal';
 import Header from './UI/Header';
 import FeedbackContainer from './components/FeedbackContainer';
+import MainNavigation from './UI/MainNavigation';
 
 export interface Screen {
   title: string;
@@ -35,6 +36,7 @@ function Dashboard() {
         <main>
           {!selectedImage ?
             <div>
+              <MainNavigation />
               <Header />
               <ImageGallery />
             </div>

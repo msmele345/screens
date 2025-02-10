@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import useAuth from "../hooks/useAuth";
-import { Navigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
 
 type ProtectedRouteProps = {
     children: ReactNode
@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     const { isLoggedIn } = useAuth();
 
     if(!isLoggedIn) {
-        return <Navigate to="/" replace/>
+        return <Navigate to="/login" replace/>
     }
 
     return children;

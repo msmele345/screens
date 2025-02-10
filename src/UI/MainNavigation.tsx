@@ -1,20 +1,24 @@
 import { NavLink, NavLinkRenderProps } from "react-router";
 import classes from "./MainNavigation.module.css";
+import useAuth from "../hooks/useAuth";
 
 function MainNavigation() {
+    const { onLogout } = useAuth();
+
     return (
         <header className={classes.header}>
             <nav>
                 <ul className={classes.list}>
                     <li>
                         <NavLink
-                            to="/"
+                            to="/login"
                             className={({ isActive }: NavLinkRenderProps) =>
                                 isActive ? classes.active : undefined
                             }
                             end
+                            onClick={onLogout}
                         >
-                            Home
+                            Logout
                         </NavLink>
                     </li>
                 </ul>

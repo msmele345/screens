@@ -1,7 +1,7 @@
 .header {
   max-width: 60rem;
   margin: auto;
-  padding: 2rem;
+  padding: .25rem;
   display: flex;
   justify-content: space-between;
 }
@@ -9,6 +9,7 @@
 .list {
   display: flex;
   gap: 1rem;
+  list-style: none;
 }
 
 .list a {
