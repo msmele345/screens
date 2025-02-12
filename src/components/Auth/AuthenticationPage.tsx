@@ -6,15 +6,6 @@ import AuthForm from "./AuthForm";
 const AuthenticationPage = (): ReactElement => {
     const { isLoggedIn } = useAuth();
 
-    const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     console.log("IS LOGGED IN AUTH PAGE: " + isLoggedIn)
-    //     if(isLoggedIn) {
-    //         return <Navigate to="/" replace/>
-    //     }
-    // }, [isLoggedIn])
-
     if(isLoggedIn) {
         console.log("IS LOGGED IN AUTH PAGE: " + isLoggedIn)
         return <Navigate to="/" replace/>

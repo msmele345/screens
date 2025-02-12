@@ -1,11 +1,13 @@
 import { ReactElement } from "react";
 import BannerVideo from '../assets/bannervideo.mp4';
+import MainNavigation from "./MainNavigation";
 
 
 
 const Header = (): ReactElement => {
     return (
         <>
+            <MainNavigation />
             <header className="header">
                 <video
                     src={BannerVideo}
