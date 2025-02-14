@@ -2,6 +2,7 @@ import { NavLink, NavLinkRenderProps } from "react-router";
 import classes from "./MainNavigation.module.css";
 import useAuth from "../hooks/useAuth";
 
+
 function MainNavigation() {
     const { onLogout } = useAuth();
 

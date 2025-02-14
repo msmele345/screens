@@ -1,8 +1,8 @@
 .header {
   max-width: 60rem;
-  margin: auto;
+  /* margin: auto; */
   padding: .25rem;
-  display: flex;
+  display: flow-root;
   justify-content: flex-end;
 }
 

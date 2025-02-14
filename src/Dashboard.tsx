@@ -36,7 +36,7 @@ function Dashboard() {
         <main>
           {!selectedImage ?
             <div>
-                <Header />
+              <Header />
               <ImageGallery />
             </div>
             : (
