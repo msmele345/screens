@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import '../scss/feedbackForm.css';
 import postFeedback from "../api/FeedbackApi";
 
@@ -29,7 +29,7 @@ const FeedbackContainer = () => {
         }));
     };
 
-    const onSubmitHandler = async (e: any) => {
+    const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         console.log("Email on Submit: ", formValues.email);
@@ -41,6 +41,12 @@ const FeedbackContainer = () => {
             setFormError("Please Enter a Valid Email Address");
             return;
         }
+        
+        if(!formValues.content) {
+            setFormError('Please enter a value');
+            return;
+        }
+        
         try {
             const serverResponse = await postFeedback(formValues.email, formValues.content)
             console.log("Post Response: ", serverResponse);
@@ -81,7 +87,6 @@ const FeedbackContainer = () => {
                     </div >
                 </div>
                 <p className="form-actions">
-                    <button className="button button-flat">Reset</button>
                     <button className="button">Submit Feedback</button>
                 </p>
             </form>
