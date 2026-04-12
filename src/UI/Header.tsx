@@ -10,8 +10,8 @@ const Header = (): ReactElement => {
         <>
             <MainNavigation />
             <header className="header">
-                <img className='displayImg' src={BannerImage} alt="No image" />
                 <h1>Lights And Music</h1>
+                <img className='bannerimage' src={BannerImage} alt="No image" />
             </header>
         </>
     );

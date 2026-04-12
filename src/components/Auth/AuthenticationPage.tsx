@@ -1,5 +1,5 @@
-import { ReactElement, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router";
+import { ReactElement } from "react";
+import { Navigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import AuthForm from "./AuthForm";
 

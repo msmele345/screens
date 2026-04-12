@@ -1,50 +1,16 @@
 import { ContainerClient } from "@azure/storage-blob";
-import { useEffect, useState } from "react";
+import { useStorageBlobClient } from "../hooks/useStorageBlobClient";
 import TabLayoutContainer from "./TabLayoutContainer";
-import getContainerClient from "../storage/storageclient";
 import UploadForm from "./UploadForm";
 
 export interface HomePageProps {
     containerClient: ContainerClient;
-}
-//move fetch to app
-//set urls in app context
-//remove use effective on app.tsx b/c it might be causing the issues with
+};
 
 const ImageGallery = () => {
+    //TEST UPLOAD TODO
 
-    const [imageUrls, setImageUrls] = useState<Record<string, unknown>[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isFetchError, setIsFetchError] = useState(false);
-
-    useEffect(() => {
-        fetchBlobs();
-    }, []);
-
-
-    const fetchBlobs = async () => {
-        setIsLoading(true);
-        const urls: Record<string, unknown>[] = [];
-        const containerClient = getContainerClient();
-
-        try {
-            const blobItems = containerClient.listBlobsFlat();
-
-            for await (const blob of blobItems) {
-                const tempBlockBlobClient = containerClient.getBlockBlobClient(blob.name);
-                urls.push({ name: blob.name, url: tempBlockBlobClient.url });
-            }
-
-            console.log("Blob Items: ", urls);
-
-        } catch (e: any) {
-            console.log("Error***: ", e.message || "server error");
-            setIsFetchError(true);
-            setIsLoading(false);
-        }
-        setIsLoading(false)
-        setImageUrls(urls);
-    }
+    const { isFetchError, isLoading, fetchBlobs,  imageUrls } = useStorageBlobClient();
 
     return (
         <>

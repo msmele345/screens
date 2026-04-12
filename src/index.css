@@ -210,6 +210,14 @@ button:hover {
   object-fit: contain;   
 } 
 
+.bannerimage {
+  width: 80%;
+  height: 80%;
+  border-radius: 2rem;
+  object-fit: contain;   
+  margin-top: 5px;
+} 
+
 .row-form { 
   width: 90%;
 }
